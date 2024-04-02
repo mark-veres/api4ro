@@ -25,20 +25,26 @@ class ComisieParlamentaraItem(scrapy.Item):
     fosti_membri = scrapy.Field()
     fosti_membri_ai_biroului = scrapy.Field()
 
-class DeputatItem(scrapy.Item):
+class ParlamentarItem(scrapy.Item):
     name = scrapy.Field()
-    circumscriptie
-    data_validarii
-    formatiune_politica
-    grup_parlamentar
-    comisii_permanente
-    alte_comisii
-    delegatii
-    grupuri_de_prietenie
-    luari_de_cuvant
-    declaratii_politice
-    propuneri_legislative
-    proiecte_de_hotarare
-    intrebari_interpelari
-    motiuni
-    birou
+    circumscriptie = scrapy.Field()
+    data_validarii = scrapy.Field()
+    formatiune_politica = scrapy.Field()
+    grup_parlamentar = scrapy.Field()
+    comisii_permanente = scrapy.Field()
+    comisii_permanente_comune = scrapy.Field()
+    comisii_speciale = scrapy.Field()
+    comisii_speciale_comune = scrapy.Field()
+    comisii_de_ancheta = scrapy.Field()
+    comisii_de_ancheta_comune = scrapy.Field()
+    alte_comisii = scrapy.Field()
+    delegatii = scrapy.Field()
+    grupuri_de_prietenie = scrapy.Field()
+    grupuri_de_lucru_comune = scrapy.Field()
+    # luari_de_cuvant = scrapy.Field()
+    # declaratii_politice = scrapy.Field()
+    # propuneri_legislative = scrapy.Field()
+    # proiecte_de_hotarare = scrapy.Field()
+    # intrebari_interpelari = scrapy.Field()
+    # motiuni = scrapy.Field()
+    birou = scrapy.Field()

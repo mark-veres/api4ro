@@ -39,6 +39,3 @@ class GrupuriParlamentareSpider(scrapy.Spider):
             nr_tel = nr_tel,
             fax = fax
         )
-    
-    def parse_deputat(self, response):
-        ""
