@@ -27,6 +27,7 @@ class ComisieParlamentaraItem(scrapy.Item):
 
 class ParlamentarItem(scrapy.Item):
     name = scrapy.Field()
+    email = scrapy.Field()
     circumscriptie = scrapy.Field()
     data_validarii = scrapy.Field()
     formatiune_politica = scrapy.Field()

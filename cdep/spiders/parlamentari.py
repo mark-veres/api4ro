@@ -25,6 +25,7 @@ class ParlamentariSpider(scrapy.Spider):
 
         yield ParlamentarItem(
             name = response.css("div.boxTitle h1::text").get(),
+            email = response.css(".mailInfo.innerText::text").get(),
             circumscriptie = response.xpath(".//h3[contains(text(), 'DEPUTAT')]/following::p[1]/a[1]/text()").get(),
             data_validarii = data_validarii,
             formatiune_politica = response.xpath(".//h3[contains(text(), 'Formatiunea politica')]/following::td[5]/text()").get(),
