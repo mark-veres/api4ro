@@ -49,3 +49,4 @@ class ParlamentarItem(scrapy.Item):
     # intrebari_interpelari = scrapy.Field()
     # motiuni = scrapy.Field()
     birou = scrapy.Field()
+    cv = scrapy.Field()

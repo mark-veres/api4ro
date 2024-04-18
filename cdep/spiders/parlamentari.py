@@ -17,9 +17,17 @@ class ParlamentariSpider(scrapy.Spider):
             columns = row.css("td")
             if len(columns) != 0:
                 url = "https://cdep.ro" + columns[1].css("a").attrib["href"]
-                yield response.follow(url, callback=self.parse_parlamentar)
+                url_cv = url + "&pag=0" # pentru pagina cu CV-ul
+                args = dict(return_url=url)
+                yield response.follow(url_cv, callback=self.get_cv, cb_kwargs=args)
     
-    def parse_parlamentar(self, response):
+    def get_cv(self, response, return_url):
+        element = response.xpath(".//span[contains(text(), 'CV') and contains(text(), 'format PDF')]/a")
+        cv_url = element.attrib["href"] if 'href' in element.attrib else ""
+        args = dict(cv_url="https://cdep.ro" + cv_url)
+        yield response.follow(return_url, callback=self.parse_parlamentar, cb_kwargs=args)
+    
+    def parse_parlamentar(self, response, cv_url):
         text = "".join(response.xpath(".//h3[contains(text(), 'DEPUTAT')]/following::p[1]//text()").getall())
         data_validarii = " ".join(re.search(r"data validarii: (\d+) (.*) (\d+)", text).groups())
 
@@ -40,5 +48,6 @@ class ParlamentariSpider(scrapy.Spider):
             delegatii = response.xpath(".//h3[contains(text(), 'Delegatii')]/following::table[1]//a/text()").getall() or [],
             grupuri_de_prietenie = response.xpath(".//h3[contains(text(), 'Grupuri de prietenie')]/following::table[1]//a/text()").getall() or [],
             grupuri_de_lucru_comune = response.xpath(".//h3[text() = 'Grupuri parlamentare de lucru comune']/following::p[1]/a/text()").getall() or [],
-            birou = response.xpath(".//h3[contains(text(), 'Biroul parlamentar')]/following::p[string-length(text()) > 0][1]/text()").get()
+            birou = response.xpath(".//h3[contains(text(), 'Biroul parlamentar')]/following::p[string-length(text()) > 0][1]/text()").get(),
+            cv = cv_url
         )
